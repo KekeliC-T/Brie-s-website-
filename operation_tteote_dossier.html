@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPERATION TTEOTE // CLASSIFIED DOSSIER</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:    #f0e6d0;
+  --paper2:   #e8d9bc;
+  --paper3:   #ddd0b0;
+  --manila:   #c8a870;
+  --ink:      #1c1008;
+  --ink-fade: #4a3820;
+  --ink-dim:  #8a7060;
+  --red:      #c41e1e;
+  --red2:     #9a1010;
+  --blue:     #1a3a6a;
+  --orange:   #c86010;
+  --rubber:   #2a4a1a;
+  --shadow:   rgba(28,16,8,0.18);
+}
+
+html { height: 100%; }
+
+body {
+  background: #8a7858;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px);
+  color: var(--ink);
+  font-family: 'Special Elite', cursive;
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+/* ── PAPER TEXTURE helper ── */
+.paper-bg {
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* ════════════════════════════════
+   PAGE SYSTEM
+════════════════════════════════ */
+.page { display: none; min-height: 100vh; flex-direction: column; position: relative; }
+.page.active { display: flex; }
+
+/* ════════════════════════════════
+   PAGE 1 — LANDING
+════════════════════════════════ */
+#page-landing {
+  align-items: center; justify-content: center;
+  padding: 60px 20px; min-height: 100vh;
+}
+
+.folder-outer {
+  width: 100%; max-width: 600px;
+  position: relative;
+  cursor: pointer;
+  perspective: 1200px;
+}
+
+/* folder back */
+.folder-back {
+  background: var(--manila);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  border: 1px solid #a08050;
+  border-radius: 2px 2px 0 0;
+  padding: 48px 40px 40px;
+  box-shadow: 4px 6px 20px var(--shadow), 0 2px 4px var(--shadow);
+  position: relative;
+}
+
+/* folder tab */
+.folder-back::before {
+  content: '';
+  position: absolute; top: -22px; left: 40px;
+  width: 120px; height: 24px;
+  background: var(--manila);
+  border: 1px solid #a08050; border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background-image: inherit;
+}
+
+/* folder label sticker */
+.folder-sticker {
+  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+  background: white;
+  border: 1px solid #bba880;
+  padding: 6px 24px 5px;
+  text-align: center;
+  box-shadow: 1px 1px 4px var(--shadow);
+  white-space: nowrap;
+  transform: translateX(-50%) rotate(-0.5deg);
+}
+.fs-top { font-size: 9px; letter-spacing: 0.25em; color: var(--ink-dim); text-transform: uppercase; }
+.fs-main { font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 0.1em; color: var(--ink); font-weight: 700; }
+.fs-bottom { font-size: 9px; letter-spacing: 0.2em; color: var(--ink-dim); }
+
+/* document inside folder */
+.folder-doc {
+  background: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  border: 1px solid #c8b890; padding: 32px 28px;
+  box-shadow: 0 2px 8px var(--shadow);
+  transform: rotate(1deg);
+  margin-top: -10px; position: relative; z-index: 1;
+}
+
+.fd-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px; margin-bottom: 20px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.fd-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 28px; font-weight: 700;
+  letter-spacing: 0.08em; color: var(--ink); line-height: 1;
+}
+.fd-ref { font-size: 11px; color: var(--ink-dim); letter-spacing: 0.15em; text-align: right; line-height: 1.7; }
+
+.fd-body { font-size: 15px; color: var(--ink-fade); line-height: 1.8; letter-spacing: 0.03em; }
+.fd-body strong { color: var(--ink); }
+
+/* big red stamp */
+.stamp-wrap {
+  position: absolute; top: 50%; right: 24px; transform: translateY(-50%) rotate(15deg);
+  pointer-events: none;
+}
+.stamp-classified {
+  border: 4px solid var(--red);
+  color: var(--red);
+  font-family: 'Oswald', sans-serif;
+  font-size: 26px; font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 6px 16px;
+  opacity: 0.75;
+  text-shadow: 1px 1px 0 rgba(196,30,30,0.3);
+  box-shadow: inset 0 0 0 2px rgba(196,30,30,0.15);
+  animation: stampThud 0.4s 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes stampThud {
+  from { transform: scale(3) rotate(0deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 0.75; }
+}
+
+.folder-cta {
+  margin-top: 16px; text-align: center; padding: 14px;
+  border: 1px dashed var(--manila);
+  font-size: 13px; letter-spacing: 0.15em; color: var(--ink-dim);
+  cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.folder-cta:hover { border-color: var(--ink); color: var(--ink); background: rgba(28,16,8,0.04); }
+.folder-cta strong { color: var(--ink); }
+
+/* paperclip decoration */
+.paperclip {
+  position: absolute; top: -18px; left: 28px;
+  font-size: 28px; transform: rotate(-90deg);
+  color: #8090a0; pointer-events: none;
+}
+
+/* corner fold */
+.folder-doc::after {
+  content: '';
+  position: absolute; bottom: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 28px 28px;
+  border-color: transparent transparent #b8a880 transparent;
+  filter: drop-shadow(-2px -2px 2px var(--shadow));
+}
+
+/* ════════════════════════════════
+   PAGE 2 — LOGIN
+════════════════════════════════ */
+#page-login {
+  align-items: center; justify-content: center;
+  padding: 60px 20px; min-height: 100vh;
+}
+
+.login-sheet {
+  width: 100%; max-width: 580px;
+  position: relative;
+}
+
+/* stack of papers effect */
+.sheet-stack-3 {
+  position: absolute; inset: 0;
+  background: var(--paper2);
+  border: 1px solid #c8b890;
+  transform: rotate(2deg) translate(6px, 5px);
+  box-shadow: 2px 3px 8px var(--shadow);
+}
+.sheet-stack-2 {
+  position: absolute; inset: 0;
+  background: var(--paper3);
+  border: 1px solid #c8b890;
+  transform: rotate(-1.5deg) translate(-4px, 3px);
+  box-shadow: 2px 3px 8px var(--shadow);
+}
+
+.login-paper {
+  background: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  border: 1px solid #c8b890;
+  box-shadow: 3px 5px 16px var(--shadow), 0 1px 3px var(--shadow);
+  position: relative; z-index: 2;
+}
+
+/* red margin line */
+.login-paper::before {
+  content: '';
+  position: absolute; left: 68px; top: 0; bottom: 0;
+  border-left: 2px solid rgba(196,30,30,0.35);
+  pointer-events: none;
+}
+
+/* ruled lines */
+.login-paper::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    transparent, transparent 31px,
+    rgba(28,16,8,0.08) 31px, rgba(28,16,8,0.08) 32px
+  );
+  background-position: 0 52px;
+}
+
+.lp-header {
+  border-bottom: 3px double var(--ink);
+  padding: 24px 28px 16px 80px;
+  position: relative;
+}
+.lp-file-no {
+  position: absolute; left: 10px; top: 26px;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: 9px; letter-spacing: 0.2em; color: var(--ink-dim);
+  transform: rotate(180deg);
+}
+.lp-title {
+  font-family: 'Oswald', sans-serif; font-size: 22px;
+  font-weight: 700; letter-spacing: 0.1em; color: var(--ink);
+}
+.lp-sub { font-size: 12px; color: var(--ink-dim); letter-spacing: 0.12em; margin-top: 3px; }
+
+.lp-stamp {
+  position: absolute; top: 16px; right: 20px;
+  border: 3px solid var(--blue);
+  color: var(--blue); font-family: 'Oswald', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.15em;
+  padding: 3px 10px; transform: rotate(-8deg);
+  opacity: 0.7;
+}
+
+.lp-body { padding: 24px 28px 28px 80px; position: relative; z-index: 1; }
+
+.lp-field-label {
+  font-size: 11px; letter-spacing: 0.2em; color: var(--ink-dim);
+  text-transform: uppercase; display: block; margin-bottom: 4px; margin-top: 20px;
+}
+.lp-field-label:first-child { margin-top: 0; }
+
+.lp-input {
+  width: 100%; background: transparent; border: none;
+  border-bottom: 1.5px solid var(--ink-fade);
+  color: var(--ink); font-family: 'Courier Prime', monospace;
+  font-size: 18px; letter-spacing: 0.1em;
+  padding: 4px 2px 6px; outline: none;
+  caret-color: var(--ink);
+  transition: border-color 0.2s;
+}
+.lp-input:focus { border-color: var(--ink); border-bottom-width: 2px; }
+.lp-input::placeholder { color: #c8b890; font-style: italic; font-size: 15px; }
+.lp-input.error { border-color: var(--red); color: var(--red); animation: shake 0.4s ease; }
+.lp-input.success { border-color: var(--rubber); color: var(--rubber); }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-5px);} 40%,80%{transform:translateX(5px);} }
+
+.lp-btn {
+  width: 100%; margin-top: 28px;
+  background: var(--ink); color: var(--paper);
+  font-family: 'Special Elite', cursive;
+  font-size: 15px; letter-spacing: 0.2em;
+  padding: 13px; border: none; cursor: pointer;
+  transition: background 0.2s, letter-spacing 0.2s;
+  text-transform: uppercase;
+}
+.lp-btn:hover { background: var(--ink-fade); letter-spacing: 0.28em; }
+
+.lp-error { font-size: 13px; color: var(--red); letter-spacing: 0.08em; margin-top: 10px; min-height: 20px; opacity: 0; transition: opacity 0.3s; }
+.lp-error.show { opacity: 1; }
+.lp-attempts { font-size: 12px; color: var(--orange); letter-spacing: 0.1em; margin-top: 4px; min-height: 18px; }
+
+.lp-back { text-align: center; margin-top: 16px; font-size: 13px; color: var(--ink-dim); letter-spacing: 0.12em; cursor: pointer; transition: color 0.2s; position: relative; z-index: 3; }
+.lp-back:hover { color: var(--ink); }
+
+/* ════════════════════════════════
+   PAGE 3 — MISSION DOSSIER
+════════════════════════════════ */
+#page-mission {
+  display: none; flex-direction: column;
+  background: #8a7858;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px);
+}
+#page-mission.active { display: flex; }
+
+/* sticky tab bar */
+.m-tabs {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--manila);
+  border-bottom: 2px solid #a08050;
+  box-shadow: 0 2px 8px var(--shadow);
+  padding: 0 20px;
+  display: flex; align-items: stretch; gap: 0; overflow-x: auto;
+}
+.m-tab {
+  padding: 10px 18px; font-size: 11px; letter-spacing: 0.15em;
+  color: var(--ink-dim); text-transform: uppercase; white-space: nowrap;
+  border-right: 1px solid #b09060; cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none; display: flex; align-items: center;
+}
+.m-tab:hover { background: rgba(28,16,8,0.08); color: var(--ink); }
+.m-tab.cta {
+  margin-left: auto; background: var(--red); color: white;
+  border-right: none; font-weight: 600;
+}
+.m-tab.cta:hover { background: var(--red2); }
+
+/* DOOM counter in tab bar */
+.m-doom-tab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 18px; border-right: 1px solid #b09060;
+  font-size: 11px; letter-spacing: 0.1em; color: var(--red);
+}
+.m-doom-time { font-family: 'Courier Prime', monospace; font-size: 13px; font-weight: 700; }
+
+/* content wrapper — looks like desk with papers */
+.dossier-desk { padding: 40px 20px 80px; max-width: 820px; margin: 0 auto; }
+
+/* section sheet */
+.doc-sheet {
+  background: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  border: 1px solid #c8b890;
+  box-shadow: 3px 5px 16px var(--shadow);
+  margin-bottom: 28px;
+  position: relative;
+  opacity: 0; transform: translateY(20px) rotate(0.2deg);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.doc-sheet.visible { opacity: 1; transform: translateY(0) rotate(0deg); }
+.doc-sheet:nth-child(odd) { transform: translateY(20px) rotate(-0.3deg); }
+.doc-sheet:nth-child(odd).visible { transform: translateY(0) rotate(-0.15deg); }
+.doc-sheet:nth-child(even) { transform: translateY(20px) rotate(0.4deg); }
+.doc-sheet:nth-child(even).visible { transform: translateY(0) rotate(0.2deg); }
+
+/* ruled lines on sheets */
+.doc-sheet::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(transparent, transparent 27px, rgba(28,16,8,0.06) 27px, rgba(28,16,8,0.06) 28px);
+  background-position: 0 58px;
+}
+/* red margin */
+.doc-sheet.has-margin::before {
+  content: ''; position: absolute; left: 56px; top: 0; bottom: 0;
+  border-left: 1.5px solid rgba(196,30,30,0.3); pointer-events: none; z-index: 1;
+}
+
+.sheet-header {
+  border-bottom: 2px solid var(--ink);
+  padding: 20px 24px 14px;
+  position: relative; z-index: 2;
+}
+.sh-eyebrow {
+  font-size: 10px; letter-spacing: 0.3em; color: var(--ink-dim);
+  text-transform: uppercase; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sh-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--ink-dim); opacity: 0.3; }
+.sh-title {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: clamp(22px, 4vw, 36px);
+  letter-spacing: 0.06em; color: var(--ink); line-height: 1;
+}
+.sh-title .red { color: var(--red); }
+.sh-title .blue { color: var(--blue); }
+
+/* corner stamp on sheets */
+.corner-stamp {
+  position: absolute; top: 14px; right: 20px;
+  border: 2px solid; font-family: 'Oswald', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  padding: 2px 8px; transform: rotate(6deg); opacity: 0.6;
+}
+.corner-stamp.red { border-color: var(--red); color: var(--red); }
+.corner-stamp.blue { border-color: var(--blue); color: var(--blue); }
+.corner-stamp.green { border-color: var(--rubber); color: var(--rubber); }
+
+.sheet-body { padding: 20px 24px 24px; position: relative; z-index: 2; }
+
+/* asset cards */
+.asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.asset-card {
+  border: 1px solid #c0a878; background: rgba(200,168,112,0.12);
+  padding: 14px 12px;
+  transition: background 0.25s, border-color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
+.asset-card:hover { background: rgba(200,168,112,0.25); border-color: var(--ink-fade); transform: translateY(-4px) rotate(0.3deg); box-shadow: 2px 6px 14px var(--shadow); }
+.ac-id { font-size: 10px; letter-spacing: 0.2em; color: var(--ink-dim); margin-bottom: 5px; }
+.ac-name { font-family: 'Oswald', sans-serif; font-size: 16px; letter-spacing: 0.06em; color: var(--ink); margin-bottom: 4px; }
+.ac-desc { font-size: 13px; color: var(--ink-fade); line-height: 1.6; }
+
+/* REDACTION BARS — signature interaction */
+.redact {
+  display: inline-block; position: relative;
+  cursor: pointer; margin: 1px 0;
+}
+.redact-bar {
+  position: absolute; inset: -2px -3px;
+  background: var(--ink);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s;
+  transform-origin: left center;
+  z-index: 1;
+  pointer-events: none;
+}
+.redact:hover .redact-bar { transform: scaleX(0); opacity: 0; }
+.redact-content { color: var(--ink); }
+
+/* intel / testimony cards */
+.intel-card {
+  border-left: 3px solid var(--ink-fade);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: rgba(28,16,8,0.03);
+  transition: border-color 0.2s, background 0.2s, padding-left 0.25s;
+  position: relative;
+}
+.intel-card::before {
+  content: '"'; position: absolute; top: 8px; left: -2px;
+  font-size: 48px; color: rgba(28,16,8,0.08);
+  font-family: Georgia, serif; line-height: 1;
+}
+.intel-card:hover { border-color: var(--ink); background: rgba(28,16,8,0.06); padding-left: 20px; }
+.ic-source { font-size: 10px; letter-spacing: 0.2em; color: var(--ink-dim); margin-bottom: 6px; }
+.ic-text { font-size: 15px; color: var(--ink-fade); line-height: 1.7; font-style: italic; }
+
+/* verdict sheet */
+.verdict-sheet {
+  background: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  border: 2px solid var(--ink);
+  box-shadow: 5px 7px 24px var(--shadow);
+  position: relative; z-index: 2;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.verdict-sheet.visible { opacity: 1; transform: none; }
+
+.vs-body { padding: 36px 32px; text-align: center; position: relative; z-index: 2; }
+
+/* big diagonal CONFIDENTIAL watermark */
+.vs-body::before {
+  content: 'CONFIDENTIAL';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(-30deg);
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: clamp(32px, 8vw, 64px);
+  color: rgba(196,30,30,0.07); letter-spacing: 0.2em;
+  white-space: nowrap; pointer-events: none;
+}
+
+.vb-eyebrow { font-size: 10px; letter-spacing: 0.3em; color: var(--ink-dim); margin-bottom: 12px; }
+.vb-stamp-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.vb-stamp {
+  border: 3px solid; font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: 18px; letter-spacing: 0.15em; padding: 6px 20px;
+  animation: stampThud 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.vb-stamp.red { border-color: var(--red); color: var(--red); transform: rotate(-3deg); }
+.vb-stamp.blue { border-color: var(--blue); color: var(--blue); transform: rotate(2deg); }
+
+.vb-title {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 0.08em; color: var(--ink); margin-bottom: 6px;
+}
+.vb-rating { font-size: 15px; color: var(--ink-dim); margin-bottom: 16px; letter-spacing: 0.08em; }
+.vb-sub { font-size: 15px; color: var(--ink-fade); max-width: 420px; margin: 0 auto 28px; line-height: 1.8; }
+
+/* verdict doom clock */
+.v-doom {
+  border: 2px solid var(--red); margin: 0 auto 28px; max-width: 460px;
+  padding: 16px 20px 14px;
+  background: rgba(196,30,30,0.04);
+  position: relative;
+}
+.v-doom::before {
+  content: 'TIME REMAINING';
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  background: var(--paper); padding: 0 10px;
+  font-size: 10px; letter-spacing: 0.3em; color: var(--red);
+}
+.vd-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.vd-unit { display: flex; flex-direction: column; align-items: center; }
+.vd-num { font-family: 'Courier Prime', monospace; font-size: 36px; font-weight: 700; color: var(--red); min-width: 52px; text-align: center; font-variant-numeric: tabular-nums; }
+.vd-lbl { font-size: 9px; color: var(--red2); letter-spacing: 0.2em; margin-top: 2px; text-transform: uppercase; }
+.vd-colon { font-size: 28px; color: rgba(196,30,30,0.4); margin-bottom: 16px; animation: colonblink 1s infinite; }
+@keyframes colonblink { 0%,49%{opacity:1;} 50%,100%{opacity:0.2;} }
+.vd-bot { font-size: 11px; color: var(--red2); text-align: center; margin-top: 8px; letter-spacing: 0.1em; font-style: italic; }
+
+/* sign here line */
+.sign-area { margin: 28px auto 0; max-width: 340px; }
+.sign-line { border-bottom: 1.5px solid var(--ink); padding-bottom: 4px; margin-bottom: 4px; }
+.sign-label { font-size: 11px; color: var(--ink-dim); letter-spacing: 0.15em; text-align: center; }
+
+.btn-sign {
+  display: block; width: 100%; margin-top: 24px;
+  background: var(--ink); color: var(--paper);
+  font-family: 'Special Elite', cursive;
+  font-size: 16px; letter-spacing: 0.15em;
+  padding: 15px; border: none; cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s, letter-spacing 0.2s;
+}
+.btn-sign:hover { background: var(--ink-fade); letter-spacing: 0.22em; }
+
+.btn-decline-link {
+  display: inline-block; margin-top: 14px; font-size: 12px;
+  color: var(--ink-dim); letter-spacing: 0.12em; cursor: pointer;
+  text-decoration: underline; transition: color 0.2s;
+  background: none; border: none; font-family: inherit;
+}
+.btn-decline-link:hover { color: var(--red); }
+
+.vb-fine { font-size: 11px; color: var(--ink-dim); margin-top: 20px; line-height: 2; letter-spacing: 0.06em; }
+
+/* faq */
+.faq-item { border-bottom: 1px solid rgba(28,16,8,0.15); padding: 14px 0; }
+.faq-item:hover .fq { color: var(--red); }
+.fq { font-family: 'Oswald', sans-serif; font-size: 17px; letter-spacing: 0.06em; color: var(--ink); margin-bottom: 5px; transition: color 0.2s; display: flex; justify-content: space-between; }
+.fq::after { content: '▸'; color: var(--red); font-size: 14px; margin-top: 2px; opacity: 0.7; }
+.fa { font-size: 14px; color: var(--ink-fade); line-height: 1.7; }
+
+/* ── OVERLAYS ── */
+.overlay {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  align-items: center; justify-content: center;
+  flex-direction: column; text-align: center; padding: 24px;
+}
+.overlay.show { display: flex; }
+
+#overlay-yes {
+  background: rgba(240,230,208,0.97);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+}
+.oy-goat { font-size: 100px; animation: goatBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both; margin-bottom: 16px; }
+@keyframes goatBounce { from{transform:scale(0)rotate(-15deg);opacity:0;} to{transform:scale(1)rotate(0);opacity:1;} }
+.oy-title { font-family: 'Oswald', sans-serif; font-size: clamp(32px,8vw,68px); letter-spacing: 0.12em; color: var(--rubber); margin-bottom: 8px; animation: fadeUp 0.5s 0.3s ease both; }
+.oy-title-stamp { border: 4px solid var(--rubber); display: inline-block; padding: 4px 20px; transform: rotate(-2deg); }
+.oy-sub { font-size: 16px; color: var(--ink-fade); max-width: 380px; line-height: 1.8; animation: fadeUp 0.5s 0.5s ease both; margin-bottom: 28px; }
+
+#overlay-no { background: rgba(240,230,208,0.97); }
+.on-title { font-family: 'Oswald', sans-serif; font-size: clamp(28px,7vw,56px); letter-spacing: 0.1em; color: var(--red); margin-bottom: 8px; animation: fadeUp 0.4s ease both; }
+.on-sub { font-size: 15px; color: var(--ink-fade); max-width: 340px; line-height: 1.7; margin-bottom: 24px; animation: fadeUp 0.4s 0.1s ease both; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+
+.btn-ink {
+  background: var(--ink); color: var(--paper);
+  font-family: 'Special Elite', cursive; font-size: 15px;
+  letter-spacing: 0.2em; padding: 13px 40px;
+  border: none; cursor: pointer; text-transform: uppercase;
+  transition: background 0.2s;
+}
+.btn-ink:hover { background: var(--ink-fade); }
+
+@media (max-width: 520px) {
+  .asset-grid { grid-template-columns: 1fr; }
+  .m-tab span { display: none; }
+  .sheet-header, .sheet-body { padding-left: 16px; padding-right: 16px; }
+  .vs-body { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════
+     PAGE 1: LANDING
+════════════════════════ -->
+<div class="page active" id="page-landing">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:60px 20px;">
+
+    <div class="folder-outer" onclick="goToPage('page-login')">
+
+      <!-- folder back / cover -->
+      <div class="folder-back paper-bg">
+        <div class="folder-sticker">
+          <div class="fs-top">GDRU // FILE NO. OP-TTE-001</div>
+          <div class="fs-main">OPERATION TTEOTE</div>
+          <div class="fs-bottom">ULTRA-BLACK // EYES ONLY</div>
+        </div>
+
+        <!-- document sticking out of folder -->
+        <div class="folder-doc" style="margin-top:60px;">
+          <div class="paperclip">📎</div>
+          <div class="fd-header">
+            <div>
+              <div class="fd-title">MISSION BRIEFING</div>
+              <div style="font-size:12px;letter-spacing:0.1em;color:var(--ink-dim);margin-top:3px;">CLASSIFIED DOCUMENT — DO NOT DUPLICATE</div>
+            </div>
+            <div class="fd-ref">
+              DATE: REDACTED<br>
+              AUTH: CMD-7<br>
+              REF: TTE-001-A
+            </div>
+          </div>
+          <p class="fd-body">
+            A <strong>doomsday-class event</strong> has been confirmed. One operative is cleared for this mission. Her identity is known. Her mission is critical. The window is closing.
+          </p>
+          <p class="fd-body" style="margin-top:10px;">
+            Access to full briefing requires <strong>identity verification</strong>. Proceed to secure terminal.
+          </p>
+          <div class="stamp-wrap">
+            <div class="stamp-classified">CLASSIFIED</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="folder-cta">
+        <strong>CLICK TO OPEN FILE</strong> &nbsp;·&nbsp; IDENTITY VERIFICATION REQUIRED
+      </div>
+    </div>
+
+    <div style="margin-top:24px;font-size:12px;letter-spacing:0.2em;color:rgba(240,230,208,0.4);text-align:center;animation:blink 1.4s infinite;">
+      // AUTHORISED PERSONNEL ONLY //
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════
+     PAGE 2: LOGIN
+════════════════════════ -->
+<div class="page" id="page-login">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:60px 20px;">
+
+    <div class="login-sheet">
+      <div class="sheet-stack-3"></div>
+      <div class="sheet-stack-2"></div>
+
+      <div class="login-paper has-margin">
+        <div class="lp-header">
+          <div class="lp-file-no">FILE: OP-TTE-001-A</div>
+          <div class="lp-title">IDENTITY VERIFICATION FORM</div>
+          <div class="lp-sub">GDRU SECTOR 7 // SECURE ACCESS TERMINAL</div>
+          <div class="lp-stamp">CONFIDENTIAL</div>
+        </div>
+
+        <div class="lp-body">
+          <div style="font-size:13px;color:var(--ink-dim);line-height:1.7;margin-bottom:20px;letter-spacing:0.03em;">
+            Complete the fields below to access Operation TTEOTE mission file.<br>
+            Unauthorised access attempts are logged and reported to Command.
+          </div>
+
+          <div class="lp-field-label">AGENT CODENAME:</div>
+          <input class="lp-input" id="inp-code" type="text" placeholder="enter codename" autocomplete="off" spellcheck="false">
+
+          <div class="lp-field-label">ACCESS PASSPHRASE:</div>
+          <input class="lp-input" id="inp-pass" type="password" placeholder="enter passphrase" autocomplete="off">
+
+          <button class="lp-btn" onclick="attemptLogin()">▸ Verify Identity &amp; Access File</button>
+
+          <div class="lp-error" id="lp-err">✗ Verification failed — credentials do not match records.</div>
+          <div class="lp-attempts" id="lp-att"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-back" onclick="goToPage('page-landing')">← Return to file cabinet</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════
+     PAGE 3: DOSSIER
+════════════════════════ -->
+<div class="page" id="page-mission">
+
+  <div class="m-tabs">
+    <a class="m-tab" href="#situation">Situation</a>
+    <a class="m-tab" href="#capabilities">Capabilities</a>
+    <a class="m-tab" href="#intel">Intel</a>
+    <a class="m-tab" href="#qa">Q&amp;A</a>
+    <div class="m-doom-tab">
+      <span style="color:var(--red);font-size:10px;letter-spacing:0.15em;">⧗ DOOMSDAY:</span>
+      <span class="m-doom-time" id="tb-doom">--d --h --m --s</span>
+    </div>
+    <a class="m-tab cta" href="#verdict">Give Verdict</a>
+  </div>
+
+  <div class="dossier-desk">
+
+    <!-- COVER SHEET -->
+    <div class="doc-sheet" id="cover" style="transform:rotate(0.5deg);">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">GDRU // FILE NO. OP-TTE-001 // ULTRA-BLACK</div>
+        <div class="sh-title" style="font-size:clamp(32px,7vw,56px);">OPERATION <span class="red">TTEOTE</span></div>
+        <div class="corner-stamp red">TOP SECRET</div>
+      </div>
+      <div class="sheet-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;font-size:13px;">
+          <div><div style="font-size:10px;letter-spacing:0.2em;color:var(--ink-dim);margin-bottom:3px;">DATE ISSUED</div><div style="color:var(--ink);">REDACTED</div></div>
+          <div><div style="font-size:10px;letter-spacing:0.2em;color:var(--ink-dim);margin-bottom:3px;">CLASSIFICATION</div><div style="color:var(--ink);">ULTRA-BLACK</div></div>
+          <div><div style="font-size:10px;letter-spacing:0.2em;color:var(--ink-dim);margin-bottom:3px;">AUTHORISED BY</div><div style="color:var(--ink);">CMD SECTOR 7</div></div>
+        </div>
+        <p style="font-size:15px;color:var(--ink-fade);line-height:1.8;margin-bottom:14px;">
+          This document contains materials classified at the highest possible level.
+          Unauthorised access, distribution, or duplication is prohibited.
+          The operative named within is the sole individual cleared for this mission.
+        </p>
+        <p style="font-size:14px;color:var(--ink-dim);font-style:italic;">
+          "The situation is critical. The window is closing. The stakes are, frankly, everything." — Command, Sector 7
+        </p>
+      </div>
+    </div>
+
+    <!-- SECTION 1: SITUATION -->
+    <div class="doc-sheet has-margin" id="situation">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">THREAT ASSESSMENT</div>
+        <div class="sh-title">THE <span class="red">SITUATION</span></div>
+        <div class="corner-stamp red">URGENT</div>
+      </div>
+      <div class="sheet-body">
+        <div style="background:rgba(196,30,30,0.06);border:1px solid rgba(196,30,30,0.25);padding:20px 18px;margin-bottom:16px;">
+          <p style="font-size:15px;color:var(--ink-fade);line-height:1.9;margin-bottom:12px;">
+            A <strong style="color:var(--ink)">doomsday-class event</strong> has been confirmed in Sector Valentine. Our analysts have identified the core vulnerability as:
+          </p>
+          <p style="font-family:'Oswald',sans-serif;font-size:22px;letter-spacing:0.06em;color:var(--red);text-align:center;padding:10px 0;">
+            THE COMPLETE ABSENCE OF A GIRLFRIEND
+          </p>
+          <p style="font-size:14px;color:var(--ink-fade);line-height:1.8;margin-top:12px;">
+            Left unaddressed, this results in irreversible timeline damage, catastrophic vibe failure, and an unacceptable waste of a perfectly good human being. The threat window is <strong style="color:var(--ink)">7 days</strong>. The operative identified is the <strong style="color:var(--ink)">only one cleared</strong> to neutralise this event.
+          </p>
+        </div>
+        <p style="font-size:13px;color:var(--ink-dim);font-style:italic;">
+          Note: Analysts confirm that hovering over redacted text will reveal classified content.
+          Try it: <span class="redact">
+            <span class="redact-bar"></span>
+            <span class="redact-content" style="font-size:13px;color:var(--red);">She really should just say yes. Immediately. The evidence is overwhelming.</span>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: CAPABILITIES -->
+    <div class="doc-sheet has-margin" id="capabilities">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">OPERATIVE DOSSIER</div>
+        <div class="sh-title">CONFIRMED <span class="blue">CAPABILITIES</span></div>
+        <div class="corner-stamp blue">VERIFIED</div>
+      </div>
+      <div class="sheet-body">
+        <div class="asset-grid">
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A01</div>
+            <div class="ac-name">COMEDY — CERTIFIED</div>
+            <div class="ac-desc">Self-audited. Results inconclusive but very promising. Multiple witnesses corroborate.</div>
+          </div>
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A02</div>
+            <div class="ac-name">FOOD SHARING — CONFIRMED</div>
+            <div class="ac-desc">Will surrender the last slice under any and all field conditions. This is not a small concession.</div>
+          </div>
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A03</div>
+            <div class="ac-name">HYPE PROTOCOL — ACTIVE</div>
+            <div class="ac-desc">Deploys unprompted. Loudly. In public. The target will be hyped. There is no opt-out.</div>
+          </div>
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A04</div>
+            <div class="ac-name">CANINE CLEARANCE — PASSED</div>
+            <div class="ac-desc">Vetted by 3 independent dogs. Dogs do not negotiate or exaggerate. This is significant.</div>
+          </div>
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A05</div>
+            <div class="ac-name">LOGISTICS — OPERATIONAL</div>
+            <div class="ac-desc">Name a vibe and observe it materialise. Chaos managed. Vibes permanently secured.</div>
+          </div>
+          <div class="asset-card">
+            <div class="ac-id">CAPABILITY REF: CAP-A06</div>
+            <div class="ac-name">RELIABILITY — VERIFIED</div>
+            <div class="ac-desc">On time. Smells good. Remembers the important stuff. Zero red flags in the entire file.</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px 14px;border:1px dashed rgba(28,16,8,0.2);font-size:13px;color:var(--ink-dim);font-style:italic;">
+          Additionally classified: &nbsp;
+          <span class="redact" style="vertical-align:middle;">
+            <span class="redact-bar"></span>
+            <span class="redact-content">makes excellent company, remembers small details, and is genuinely one of a kind.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: INTEL -->
+    <div class="doc-sheet has-margin" id="intel">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">FIELD INTELLIGENCE</div>
+        <div class="sh-title">INTERCEPTED <span class="blue">TRANSMISSIONS</span></div>
+        <div class="corner-stamp blue">AUTHENTICATED</div>
+      </div>
+      <div class="sheet-body">
+        <div class="intel-card">
+          <div class="ic-source">ORIGIN: OPERATIVE'S FUTURE SELF · DATE: REDACTED · RELIABILITY: 100%</div>
+          <p class="ic-text">"Genuinely one of the best decisions I ever made. Zero hesitation. Would action again immediately and without reservation."</p>
+        </div>
+        <div class="intel-card">
+          <div class="ic-source">ORIGIN: FIELD ASSET "Zee" · RELIABILITY RATING: VERY HIGH</div>
+          <p class="ic-text">"Punctual, dependable, good hygiene, strong memory. I recommend immediate and unconditional deployment."</p>
+        </div>
+        <div class="intel-card">
+          <div class="ic-source">ORIGIN: CANINE UNIT Bruno · AGE: 4YRS (28 IN DOG YEARS)</div>
+          <p class="ic-text">"WOOF. [aggressive tail wag detected] WOOF WOOF. [rolls over] [rolls back] Fully and enthusiastically approved."</p>
+        </div>
+        <div class="intel-card">
+          <div class="ic-source">ORIGIN: COMMITTEE FOR CORRECT DECISIONS · EST. JUST NOW</div>
+          <p class="ic-text">"Post full review across all available data: zero liabilities found. Unanimous recommendation to proceed without hesitation."</p>
+        </div>
+        <div style="margin-top:14px;font-size:13px;color:var(--ink-dim);font-style:italic;padding:10px 12px;border-left:2px solid rgba(28,16,8,0.2);">
+          Further classified intelligence: &nbsp;
+          <span class="redact">
+            <span class="redact-bar"></span>
+            <span class="redact-content">Every single person who knows both parties agrees this is an excellent idea.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: LIABILITIES (redacted) -->
+    <div class="doc-sheet has-margin">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">RISK EVALUATION</div>
+        <div class="sh-title">KNOWN <span class="red">LIABILITIES</span></div>
+        <div class="corner-stamp green">REVIEWED</div>
+      </div>
+      <div class="sheet-body">
+        <div style="border:1px solid rgba(28,16,8,0.2);padding:24px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:12px;">🔍</div>
+          <p style="font-size:15px;color:var(--ink-fade);line-height:1.9;margin-bottom:12px;">
+            A multi-week exhaustive review was conducted across all available files.<br>
+            Three focus groups. Two independent auditors. One very long spreadsheet.
+          </p>
+          <p style="font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:0.08em;color:var(--ink-dim);">
+            [ ALL CONTENT IN THIS SECTION HAS BEEN REDACTED ]
+          </p>
+          <p style="font-size:12px;color:rgba(28,16,8,0.3);margin-top:6px;font-style:italic;">(because the auditors found absolutely nothing)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Q&A -->
+    <div class="doc-sheet has-margin" id="qa">
+      <div class="sheet-header">
+        <div class="sh-eyebrow">COMMON OBJECTIONS</div>
+        <div class="sh-title">MISSION <span class="blue">Q &amp; A</span></div>
+      </div>
+      <div class="sheet-body">
+        <div class="faq-item">
+          <div class="fq">IS THIS UNUSUAL PROCEDURE?</div>
+          <div class="fa">Confirmed — highly irregular. Field analysis predicts this will be described as "incredibly cute" at every future debrief, gathering, and anniversary indefinitely.</div>
+        </div>
+        <div class="faq-item">
+          <div class="fq">WHAT IF THE OPERATIVE DECLINES?</div>
+          <div class="fa">The decline option has been engineered to be logistically very inconvenient. Command strongly discourages it. The clock does not pause for bad decisions.</div>
+        </div>
+        <div class="faq-item">
+          <div class="fq">IS A TRIAL DEPLOYMENT POSSIBLE?</div>
+          <div class="fa">Confirmed. Trial period is already underway, codenamed "hanging out." Early results are highly encouraging across all tracked metrics.</div>
+        </div>
+        <div class="faq-item">
+          <div class="fq">WHAT DOES TTEOTE STAND FOR?</div>
+          <div class="fa">Classified at the highest level. What can be confirmed: it is accurate, it is significant, and it is entirely about you. Hover to reveal: <span class="redact"><span class="redact-bar"></span><span class="redact-content" style="font-style:italic;">"Till The End Of The Earth" — you, specifically.</span></span></div>
+        </div>
+        <div class="faq-item">
+          <div class="fq">IS THIS LEGALLY BINDING?</div>
+          <div class="fa">Only in 3 jurisdictions. Command declines to specify which ones. Proceed with the assumption that yes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERDICT -->
+    <div class="verdict-sheet" id="verdict">
+      <div class="vs-body">
+        <div class="vb-eyebrow">§ FINAL SECTION — OPERATIVE RESPONSE REQUIRED</div>
+        <div class="vb-stamp-row">
+          <div class="vb-stamp red">URGENT</div>
+          <div class="vb-stamp blue">EYES ONLY</div>
+        </div>
+        <div class="vb-title">YOUR CALL, AGENT.</div>
+        <div class="vb-rating">★★★★★ &nbsp; Rated 5/5 by the sole reviewer</div>
+        <p class="vb-sub">The evidence has been presented. The intel is airtight. The liabilities section was empty. The universe is waiting. What do you say, will you be my girlfriend?</p>
+
+        <div class="v-doom">
+          <div class="vd-row">
+            <div class="vd-unit"><span class="vd-num" id="vd-d">07</span><span class="vd-lbl">DAYS</span></div>
+            <span class="vd-colon">:</span>
+            <div class="vd-unit"><span class="vd-num" id="vd-h">00</span><span class="vd-lbl">HRS</span></div>
+            <span class="vd-colon">:</span>
+            <div class="vd-unit"><span class="vd-num" id="vd-m">00</span><span class="vd-lbl">MIN</span></div>
+            <span class="vd-colon">:</span>
+            <div class="vd-unit"><span class="vd-num" id="vd-s">00</span><span class="vd-lbl">SEC</span></div>
+          </div>
+          <div class="vd-bot">until this matter becomes irreversible</div>
+        </div>
+
+        <div class="sign-area">
+          <div class="sign-line" style="height:40px;"></div>
+          <div class="sign-label">AGENT SIGNATURE &nbsp;·&nbsp; DATE: ___________</div>
+        </div>
+
+        <button class="btn-sign" onclick="missionYes()" style="max-width:340px;margin-left:auto;margin-right:auto;">
+          ✓ &nbsp;SIGN &amp; ACCEPT MISSION
+        </button>
+        <div>
+          <button class="btn-decline-link" id="noBtn" onmouseenter="dodgeBtn(this)">Decline mission</button>
+        </div>
+
+        <p class="vb-fine">
+          * Declining has been noted as evasive behaviour in your permanent file.<br>
+          * "Decline" is technically an option. A deeply inadvisable one.<br>
+          * This offer remains active until the doomsday clock reaches zero.
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /dossier-desk -->
+</div><!-- /page-mission -->
+
+
+<!-- ACCEPTED OVERLAY -->
+<div class="overlay" id="overlay-yes">
+  <div class="oy-goat">🐐</div>
+  <div class="oy-title"><div class="oy-title-stamp">MISSION ACCEPTED.</div></div>
+  <p class="oy-sub">Outstanding. The doomsday event has been neutralised. The universe exhales. History will record this as the correct decision. Welcome to the team, Agent.</p>
+  <button class="btn-ink" onclick="returnHome()">▸ Return to Base</button>
+</div>
+
+<!-- DECLINED OVERLAY -->
+<div class="overlay" id="overlay-no">
+  <div class="on-title">MISSION REJECTED.</div>
+  <p class="on-sub">Unacceptable. Command is disappointed. The dogs are disappointed. Please reconsider your life choices immediately.</p>
+  <button class="btn-ink" onclick="document.getElementById('overlay-no').classList.remove('show')">← Reconsider</button>
+</div>
+
+
+<script>
+// ── PAGE ROUTER ──
+function goToPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'page-mission') setupReveal();
+}
+
+// ── DOOMSDAY CLOCK ──
+const DOOM_KEY = 'tteote_dossier_doom_v1';
+let doomTarget = localStorage.getItem(DOOM_KEY);
+if (!doomTarget) { doomTarget = Date.now() + 7*24*60*60*1000; localStorage.setItem(DOOM_KEY, doomTarget); }
+doomTarget = Number(doomTarget);
+
+function pad(n) { return String(Math.max(0,Math.floor(n))).padStart(2,'0'); }
+
+function updateClocks() {
+  const diff = Math.max(0, doomTarget - Date.now());
+  const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000),
+        m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+  const lsd = document.getElementById('ls-days'); if(lsd) lsd.textContent = pad(d);
+  const tb = document.getElementById('tb-doom'); if(tb) tb.textContent = `${pad(d)}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+  [['vd-d',d],['vd-h',h],['vd-m',m],['vd-s',s]].forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.textContent=pad(v); });
+  if(diff<3600000) document.querySelectorAll('.vd-num').forEach(el=>{el.style.color='#9a0000';});
+}
+updateClocks(); setInterval(updateClocks, 1000);
+
+// ── LOGIN ──
+let attempts = 3;
+function attemptLogin() {
+  const code = document.getElementById('inp-code').value.trim().toUpperCase();
+  const pass = document.getElementById('inp-pass').value.trim().toLowerCase();
+  const err = document.getElementById('lp-err'), att = document.getElementById('lp-att');
+  if (code==='GOAT' && pass==='august17') {
+    err.classList.remove('show'); att.textContent='';
+    document.getElementById('inp-code').classList.add('success');
+    document.getElementById('inp-pass').classList.add('success');
+    setTimeout(()=>goToPage('page-mission'), 500);
+  } else {
+    attempts--;
+    ['inp-code','inp-pass'].forEach(id=>{ const el=document.getElementById(id); el.classList.add('error'); setTimeout(()=>el.classList.remove('error'),500); });
+    err.classList.add('show');
+    if(attempts>0) { att.textContent=`✗ ${attempts} attempt${attempts!==1?'s':''} remaining before lockout.`; }
+    else { att.textContent='✗ Terminal locked. Contact Command.'; document.querySelector('.lp-btn').disabled=true; document.querySelector('.lp-btn').style.opacity='0.4'; }
+  }
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Enter' && document.getElementById('page-login').classList.contains('active')) attemptLogin(); });
+
+// ── SCROLL REVEAL ──
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+}, {threshold:0.08});
+function setupReveal() {
+  document.querySelectorAll('.doc-sheet, .verdict-sheet').forEach(el=>revObs.observe(el));
+}
+
+// ── 3D TILT ──
+document.addEventListener('mousemove', e=>{
+  document.querySelectorAll('.asset-card').forEach(card=>{
+    const r=card.getBoundingClientRect();
+    if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) return;
+    const x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+    card.style.transform=`perspective(600px) rotateY(${x*6}deg) rotateX(${-y*5}deg) translateY(-4px)`;
+  });
+});
+document.addEventListener('mouseleave', ()=>{
+  document.querySelectorAll('.asset-card').forEach(c=>c.style.transform='');
+}, true);
+
+// ── RUNAWAY DECLINE ──
+let noMoves=0;
+const noMsgs=['Decline mission','...Are you certain?','Reconsidering?','Please don\'t. 😭','...Really?','The dogs are watching.','This is inadvisable.','Command is displeased.','Please come back.','(Fine... but actually yes.)'];
+function dodgeBtn(btn) {
+  noMoves++;
+  const vw=window.innerWidth, vh=window.innerHeight, rect=btn.getBoundingClientRect();
+  btn.style.cssText+=`;position:fixed;left:${Math.max(20,Math.random()*(vw-rect.width-20))}px;top:${Math.max(80,Math.random()*(vh-rect.height-20))}px;z-index:400;`;
+  btn.textContent=noMsgs[Math.min(noMoves-1,noMsgs.length-1)];
+  if(noMoves>5) btn.style.opacity=String(Math.max(0.15,1-(noMoves-5)*0.12));
+  if(noMoves>8) setTimeout(()=>document.getElementById('overlay-no').classList.add('show'),200);
+}
+
+// ── YES ──
+function missionYes() {
+  const colors=['#c41e1e','#1a3a6a','#c86010','#2a4a1a','#1c1008'];
+  for(let i=0;i<80;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');
+      c.style.cssText=`position:fixed;left:${Math.random()*100}vw;top:-10px;width:${4+Math.random()*7}px;height:${8+Math.random()*10}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:1px;z-index:9990;pointer-events:none;transform:rotate(${Math.random()*360}deg);animation:cfall ${1.5+Math.random()*2}s linear forwards;`;
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    },i*28);
+  }
+  setTimeout(()=>document.getElementById('overlay-yes').classList.add('show'),400);
+}
+
+function returnHome() {
+  document.getElementById('overlay-yes').classList.remove('show');
+  goToPage('page-landing');
+}
+
+const sty=document.createElement('style');
+sty.textContent=`@keyframes cfall{from{transform:translateY(0)rotate(0);opacity:1;}to{transform:translateY(110vh)rotate(540deg);opacity:0;}} @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}`;
+document.head.appendChild(sty);
+</script>
+</body>
+</html>
